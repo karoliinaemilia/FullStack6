@@ -19,7 +19,7 @@ const asObject = (anecdote) => {
 
 const initialState = anecdotesAtStart.map(asObject)
 
-const actionFor = {
+export const actionFor = {
   anecdoteCreation(content) {
     return {
       type: 'CREATE',
@@ -49,4 +49,4 @@ const reducer = (store = initialState, action) => {
   return store
 }
 
-export default { reducer, actionFor }
+export default reducer
