@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom'
 
 const Menu = () => (
   <div>    
@@ -54,13 +54,25 @@ const Anecdote = ({ anecdote }) => {
   )
 }
 
+const Notification = ( {notification} ) => {
+  if (notification !== '') {
+    return (
+      <div>
+        {notification}
+      </div>
+    )
+  }
+  return  null
+}
+
 class CreateNew extends React.Component {
   constructor() {
     super()
     this.state = {
       content: '',
       author: '',
-      info: ''
+      info: '',
+      added: false
     }
   }
 
@@ -77,11 +89,19 @@ class CreateNew extends React.Component {
       info: this.state.info,
       votes: 0
     })
+
+    this.props.setNotification(`a new anecdote ${this.state.content} created!`)
+
+    this.setState({
+      added: true
+    })
+
   }
 
   render() {
     return(
       <div>
+        {this.state.added ? <Redirect to='/'/> : null}
         <h2>create a new anecdote</h2>
         <form onSubmit={this.handleSubmit}>
           <div>
@@ -129,6 +149,18 @@ class App extends React.Component {
     } 
   }
 
+  setNotification = (notification) => {
+    this.setState({
+      notification
+    })
+
+    setTimeout(() => {
+      this.setState({
+        notification: ''
+      })
+    }, 10000);
+  }
+
   addNew = (anecdote) => {
     anecdote.id = (Math.random() * 10000).toFixed(0)
     this.setState({ anecdotes: this.state.anecdotes.concat(anecdote) })
@@ -157,10 +189,11 @@ class App extends React.Component {
         <Router>
           <div>
             <Menu />
+            <Notification notification={this.state.notification} />
               <div>
                 <Route exact path='/' render={() => <AnecdoteList anecdotes={this.state.anecdotes} />} />
                 <Route path='/about' render={() => <About /> } />     
-                <Route path='/create' render={() => <CreateNew addNew={this.addNew}/>} />
+                <Route path='/create' render={() => <CreateNew addNew={this.addNew} setNotification={this.setNotification}/>} />
                 <Route exact path='/anecdotes/:id' render={({match}) =>
                   <Anecdote anecdote={this.anecdoteById(match.params.id)} /> }
                 />
@@ -174,3 +207,4 @@ class App extends React.Component {
 }
 
 export default App;
+ 
