@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, NavLink, Link, Redirect } from 'react-router-dom'
-import { ListGroup, ListGroupItem } from 'react-bootstrap'
+import { ListGroup, ListGroupItem, Grid, Row, Col } from 'react-bootstrap'
 
 const Menu = () => {
   const activeStyle = {
@@ -40,14 +40,26 @@ const AnecdoteList = ({ anecdotes }) => (
 const About = () => (
   <div>
     <h2>About anecdote app</h2>
-    <p>According to Wikipedia:</p>
     
-    <em>An anecdote is a brief, revealing account of an individual person or an incident. 
-      Occasionally humorous, anecdotes differ from jokes because their primary purpose is not simply to provoke laughter but to reveal a truth more general than the brief tale itself, 
-      such as to characterize a person by delineating a specific quirk or trait, to communicate an abstract idea about a person, place, or thing through the concrete details of a short narrative. 
-      An anecdote is "a story with a point."</em>
 
-    <p>Software engineering is full of excellent anecdotes, at this app you can find the best and add more.</p>
+    <Grid>
+      <Row>
+        <Col xs={8}>
+        <p>According to Wikipedia:</p>
+        <em>An anecdote is a brief, revealing account of an individual person or an incident. 
+          Occasionally humorous, anecdotes differ from jokes because their primary purpose is not simply to provoke laughter but to reveal a truth more general than the brief tale itself, 
+          such as to characterize a person by delineating a specific quirk or trait, to communicate an abstract idea about a person, place, or thing through the concrete details of a short narrative. 
+          An anecdote is "a story with a point."
+        </em>
+        <p>Software engineering is full of excellent anecdotes, at this app you can find the best and add more.</p>
+        </Col>
+        <Col xs={4}>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/EdsgerDijkstra.jpg" style={{ height: "100%", width: "100%" }}/>
+          <a href='http://cs.utexas.edu/users/EWD/' style={{color: 'MediumSeaGreen', textDecoration: 'underline'}}>image source</a>
+        </Col>
+      </Row>
+    </Grid>
+    <br/>
   </div>
 )
 
