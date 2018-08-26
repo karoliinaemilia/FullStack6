@@ -1,26 +1,31 @@
 import React from 'react'
-import { BrowserRouter as Router, Route, NavLink, Link, Redirect } from 'react-router-dom'
-import { ListGroup, ListGroupItem, Grid, Row, Col } from 'react-bootstrap'
+import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom'
+import { FormGroup, ControlLabel, FormControl, Button, ListGroup, ListGroupItem, Grid, Row, Col, Alert, Navbar, Nav, NavItem } from 'react-bootstrap'
+import { LinkContainer } from 'react-router-bootstrap'
 
 const Menu = () => {
-  const activeStyle = {
-    background: 'white',
-    fontStyle: 'italic',
-    color: 'CadetBlue',
-    padding: 10
-  }
-
-  const style = {
-    background: 'LightBlue',
-    padding: 10
-  }
-
   return (
-    <div style={style}>    
-      <NavLink exact to='/' activeStyle={activeStyle}>anecdotes</NavLink>&nbsp;
-      <NavLink exact to='/create' activeStyle={activeStyle}>create new</NavLink>&nbsp;
-      <NavLink exact to='/about'activeStyle={activeStyle}>about</NavLink>&nbsp;  
-    </div>
+    <Navbar inverse collapseOnSelect>
+      <Navbar.Header>
+        <Navbar.Brand>
+          Software anecdotes
+        </Navbar.Brand>
+        <Navbar.Toggle />
+      </Navbar.Header>
+      <Navbar.Collapse>
+        <Nav>
+          <LinkContainer exact to='/'> 
+            <NavItem>anecdotes</NavItem>
+          </LinkContainer>
+          <LinkContainer to='/create'>
+            <NavItem>create new</NavItem>
+          </LinkContainer>
+          <LinkContainer to='/about'>
+            <NavItem>about</NavItem>
+          </LinkContainer>
+        </Nav>
+      </Navbar.Collapse>
+    </Navbar>
   )
 }
 
@@ -54,8 +59,8 @@ const About = () => (
         <p>Software engineering is full of excellent anecdotes, at this app you can find the best and add more.</p>
         </Col>
         <Col xs={4}>
-          <img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/EdsgerDijkstra.jpg" style={{ height: "100%", width: "100%" }}/>
-          <a href='http://cs.utexas.edu/users/EWD/' style={{color: 'MediumSeaGreen', textDecoration: 'underline'}}>image source</a>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/EdsgerDijkstra.jpg" alt='' style={{ height: "100%", width: "100%" }}/>
+          <a href='https://cs.utexas.edu/users/EWD/' style={{textDecoration: 'underline'}}>image source</a>
         </Col>
       </Row>
     </Grid>
@@ -82,21 +87,11 @@ const Anecdote = ({ anecdote }) => {
 }
 
 const Notification = ( {notification} ) => {
-  const style = {
-    color: 'green',
-    fontSize: 20,
-    borderStyle: 'solid',
-    borderWidth: 'thin',
-    borderRadius: 10,
-    padding: 10,
-    paddingLeft: 15,
-    margin: 5
-  }
   if (notification !== '') {
     return (
-      <div style={style}>
+      <Alert bsStyle="success">
         {notification}
-      </div>
+      </Alert>
     )
   }
   return  null
@@ -114,7 +109,6 @@ class CreateNew extends React.Component {
   }
 
   handleChange = (e) => {
-    console.log(e.target.name, e.target.value)
     this.setState({ [e.target.name]: e.target.value })
   }
 
@@ -141,19 +135,39 @@ class CreateNew extends React.Component {
         {this.state.added ? <Redirect to='/'/> : null}
         <h2>create a new anecdote</h2>
         <form onSubmit={this.handleSubmit}>
-          <div>
-            content 
-            <input name='content' value={this.state.content} onChange={this.handleChange} />
-          </div>
-          <div>
-            author
-            <input name='author' value={this.state.author} onChange={this.handleChange} />
-          </div>
-          <div>
-            url for more info
-            <input name='info' value={this.state.info} onChange={this.handleChange} />
-          </div> 
-          <button>create</button>
+          <FormGroup>
+            <div>
+              <ControlLabel>
+              content:
+              </ControlLabel>
+              <FormControl
+                name='content' 
+                value={this.state.content} 
+                onChange={this.handleChange} 
+              />
+            </div>
+            <div>
+              <ControlLabel>
+              author:
+              </ControlLabel>
+              <FormControl
+                name='author' 
+                value={this.state.author} 
+                onChange={this.handleChange} 
+              />
+            </div>
+            <div>
+              <ControlLabel>
+              url for more info:
+              </ControlLabel>
+              <FormControl
+                name='info' 
+                value={this.state.info} 
+                onChange={this.handleChange} 
+              />
+            </div> 
+            <Button bsStyle="primary" type="submit">create</Button>
+          </FormGroup>
         </form>
       </div>  
     )
@@ -222,7 +236,6 @@ class App extends React.Component {
   render() {
     return (
       <div className='container'>
-        <h1>Software anecdotes</h1>
         <Router>
           <div>
             <Menu />
