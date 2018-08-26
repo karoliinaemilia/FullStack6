@@ -19,20 +19,20 @@ const asObject = (anecdote) => {
 
 const initialState = anecdotesAtStart.map(asObject)
 
-export const actionFor = {
-  anecdoteCreation(content) {
-    return {
-      type: 'CREATE',
-      content
-    }
-  },
-  voting(id) {
-    return {
-      type: 'VOTE',
-      id
-    }
+export const anecdoteCreation = (content) => {
+  return {
+    type: 'CREATE',
+    content
   }
 }
+
+export const voting = (id) => {
+  return {
+    type: 'VOTE',
+    id
+  }
+}
+
 
 const reducer = (store = initialState, action) => {
   if (action.type==='VOTE') {
