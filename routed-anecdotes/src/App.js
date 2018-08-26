@@ -1,11 +1,12 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, NavLink, Link, Redirect } from 'react-router-dom'
+import { ListGroup, ListGroupItem } from 'react-bootstrap'
 
 const Menu = () => {
   const activeStyle = {
-    background: 'grey',
-    color: 'purple',
+    background: 'white',
     fontStyle: 'italic',
+    color: 'CadetBlue',
     padding: 10
   }
 
@@ -26,13 +27,13 @@ const Menu = () => {
 const AnecdoteList = ({ anecdotes }) => (
   <div>
     <h2>Anecdotes</h2>
-    <ul>
-      {anecdotes.map(anecdote => 
-        <li key={anecdote.id} >
-        <Link to={`/anecdotes/${anecdote.id}`}> {anecdote.content} </Link>
-        </li>
+    <ListGroup>
+        {anecdotes.map(anecdote => 
+        <ListGroupItem key={anecdote.id} >
+          <Link to={`/anecdotes/${anecdote.id}`}> {anecdote.content} </Link>
+        </ListGroupItem>
       )}
-    </ul>  
+    </ListGroup> 
   </div>
 )
 
@@ -208,7 +209,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className='container'>
         <h1>Software anecdotes</h1>
         <Router>
           <div>
