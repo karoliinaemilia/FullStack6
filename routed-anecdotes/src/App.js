@@ -55,9 +55,19 @@ const Anecdote = ({ anecdote }) => {
 }
 
 const Notification = ( {notification} ) => {
+  const style = {
+    color: 'green',
+    fontSize: 20,
+    borderStyle: 'solid',
+    borderWidth: 'thin',
+    borderRadius: 10,
+    padding: 10,
+    paddingLeft: 15,
+    margin: 5
+  }
   if (notification !== '') {
     return (
-      <div>
+      <div style={style}>
         {notification}
       </div>
     )
